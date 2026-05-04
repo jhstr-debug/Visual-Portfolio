@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School Work — Jhester</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* School Work Page Styles */
+        .sw-hero {
+            padding-top: calc(var(--header-h) + 4rem);
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--clr-border);
+        }
+
+        .sw-hero__back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--clr-text-muted);
+            text-decoration: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .sw-hero__back:hover {
+            color: var(--clr-accent);
+        }
+
+        .sw-hero__eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: var(--clr-accent);
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .sw-hero__title {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .sw-hero__title em {
+            color: var(--clr-text-muted);
+            font-style: italic;
+        }
+
+        .sw-hero__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .sw-hero__pill {
+            font-size: 0.75rem;
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: 100px;
+            padding: 5px 14px;
+            color: var(--clr-text-faint);
+        }
+
+        .sw-hero__pill--accent {
+            color: var(--clr-accent);
+            background: var(--clr-accent-muted);
+            border-color: rgba(200, 240, 96, 0.2);
+        }
+
+        .sw-tabs {
+            padding-block: 2.5rem;
+            border-bottom: 1px solid var(--clr-border);
+            position: sticky;
+            top: var(--header-h);
+            background: rgba(12, 12, 12, 0.92);
+            backdrop-filter: blur(16px);
+            z-index: 50;
+        }
+
+        .sw-tabs__inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .sw-tab {
+            font-size: 0.8rem;
+            color: var(--clr-text-muted);
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: 100px;
+            padding: 6px 18px;
+            text-decoration: none;
+            transition: all 0.25s;
+        }
+
+        .sw-tab:hover {
+            color: var(--clr-text);
+            border-color: var(--clr-border-hover);
+        }
+
+        .sw-tab.active {
+            color: #0c0c0c;
+            background: var(--clr-accent);
+            border-color: var(--clr-accent);
+        }
+
+        .sw-section {
+            padding-block: clamp(4rem, 8vw, 6rem);
+            scroll-margin-top: calc(var(--header-h) + 80px);
+        }
+
+        .sw-section__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .sw-section__num {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            color: var(--clr-accent);
+        }
+
+        .sw-section__title {
+            font-family: var(--font-display);
+            font-size: clamp(1.3rem, 3vw, 1.75rem);
+            font-weight: 700;
+        }
+
+        .sw-section__count {
+            font-size: 0.75rem;
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: 100px;
+            padding: 4px 12px;
+        }
+
+        .sw-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .sw-item {
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .sw-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--clr-border-hover);
+        }
+
+        .sw-item__img-wrap {
+            aspect-ratio: 4/3;
+            background: var(--clr-bg-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--clr-text-faint);
+            font-size: 0.8rem;
+        }
+
+        .sw-item__img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .img-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 2rem;
+        }
+
+        .sw-item__body {
+            padding: 1.25rem;
+        }
+
+        .sw-item__tag {
+            font-size: 0.68rem;
+            color: var(--clr-accent);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .sw-item__title {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--clr-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .sw-item__footer {
+            padding: 0.75rem 1.25rem;
+            border-top: 1px solid var(--clr-border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--clr-text-faint);
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lightbox__inner {
+            max-width: 800px;
+            width: 100%;
+            background: var(--clr-bg-2);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+
+        .lightbox__img {
+            width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            background: var(--clr-bg-3);
+        }
+
+        .lightbox__info {
+            padding: 1.5rem;
+        }
+
+        .lightbox__tag {
+            font-size: 0.7rem;
+            color: var(--clr-accent);
+            text-transform: uppercase;
+        }
+
+        .lightbox__title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .lightbox__desc {
+            font-size: 0.875rem;
+            color: var(--clr-text-muted);
+            line-height: 1.6;
+        }
+
+        .lightbox__close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .footer-contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--clr-text-muted);
+        }
+
+        .footer-contact-row a {
+            color: var(--clr-text-muted);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--clr-border);
+        }
+
+        .footer-contact-row a:hover {
+            color: var(--clr-accent);
+        }
+
+        @media (max-width: 768px) {
+            .footer-contact-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <header class="header scrolled" id="header">
+        <nav class="nav container">
+            <a href="index.html" class="nav__logo">JMP<span class="nav__logo-dot">.</span></a>
+            <ul class="nav__links">
+                <li><a href="index.html" class="nav__link">Home</a></li>
+                <li><a href="index.html#about" class="nav__link">About</a></li>
+                <li><a href="index.html#projects" class="nav__link">Projects</a></li>
+                <li><a href="index.html#schoolwork" class="nav__link">School Work</a></li>
+                <li><a href="artist_statement.html" class="nav__link">Statement</a></li>
+            </ul>
+            <button class="nav__burger" id="burger"
+                aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </nav>
+        <div class="nav__mobile" id="mobileMenu">
+            <ul>
+                <li><a href="index.html" class="mobile__link">Home</a></li>
+                <li><a href="index.html#about" class="mobile__link">About</a></li>
+                <li><a href="index.html#projects" class="mobile__link">Projects</a></li>
+                <li><a href="index.html#schoolwork" class="mobile__link">School Work</a></li>
+                <li><a href="artist_statement.html" class="mobile__link">Statement</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="sw-hero">
+            <div class="container">
+                <a href="index.html#schoolwork" class="sw-hero__back">← Back to Portfolio</a>
+                <span class="sw-hero__eyebrow">Academic Outputs</span>
+                <h1 class="sw-hero__title">School<br><em>Work.</em></h1>
+                <div class="sw-hero__meta">
+                    <span class="sw-hero__pill sw-hero__pill--accent">BSIT</span>
+                    <span class="sw-hero__pill">Philippines 🇵🇭</span>
+                    <span class="sw-hero__pill" id="total-count">10 outputs</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sw-tabs">
+            <div class="container">
+                <div class="sw-tabs__inner">
+                    <a href="#" class="sw-tab active" data-filter="all">All</a>
+                    <a href="#subject1" class="sw-tab" data-filter="subject1">Reading Visual Arts (RVA)</a>
+                </div>
+            </div>
+        </div>
+
+        <section class="sw-section" id="subject1">
+            <div class="container">
+                <div class="sw-section__header">
+                    <div class="sw-section__label">
+                        <span class="sw-section__num">01</span>
+                        <h2 class="sw-section__title">Reading Visual Arts (RVA)</h2>
+                    </div>
+                    <span class="sw-section__count">10 outputs</span>
+                </div>
+                <div class="sw-grid" id="sw-grid">
+                    <!-- All 11 items will be populated by JS to avoid duplication errors -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <span class="footer__logo">JMP<span>.</span></span>
+            <p>© 2026 Jhester M. Pascual. All rights reserved.</p>
+            <div class="footer-contact-row">
+                <span>📧 @jhesterpascual10@gmail.com</span>
+                <span>🔗 <a href="https://www.facebook.com/share/1K64JjgTe3/">Facebook</a> / <a
+                        href="https://www.instagram.com/__jhstr?igsh=cWYyeTRtamVycHU=">Instagram</a></span>
+                <span>🌐 Based in PH</span>
+            </div>
+            <p class="footer__built">Designed &amp; Built by Jhester</p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox__inner">
+            <button class="lightbox__close" id="lbClose">✕</button>
+            <img class="lightbox__img" id="lbImg" alt="">
+            <div class="lightbox__info">
+                <span class="lightbox__tag" id="lbTag"></span>
+                <h3 class="lightbox__title" id="lbTitle"></h3>
+                <p class="lightbox__desc" id="lbDesc"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // All your original data preserved
+        const itemsData = [
+            { title: "Digital Visual World Collage", desc: "My visual world applications showcases my digital lifestyle, illustrating how my hobbies and passions are centered online.", tag: "Module 1", src: "module1.png", date: "January 27,2026", type: "Activity" },
+            { title: "Observational Drawing (7 Elements)", desc: "A pencil still life of a bottle, book, and rubics cube with shading for depth. I used the 7 elements which are line, shape, form, value, texture, space, color (grayscale).", tag: "Module 2", src: "module2.jpg", date: "Semester 1, 2025", type: "Activity" },
+            { title: "Abstract Composition Project", desc: "For this Module 3 project, I used Unity to create a dynamic abstract composition by arranging primitive 3D objects (cubes, spheres, and planes) within a scene. I focused on exploring balance, contrast, and spatial relationships by manipulating transforms, materials, and lighting. This exercise helped me understand how to use Unity’s core transformation tools and lighting systems to build visual interest and convey mood through non-representational forms.", tag: "Module 3", src: "module3.png", date: "February 8, 2026", type: "Activity" },
+            { title: "Transformation Series", desc: "Using only a pencil, I created a three-part drawing of a coconut. The first panel is representational, showing the coconut realistically with texture and form. The second panel is abstract, simplifying and distorting the coconut's shapes and patterns. The third panel is non-objective, removing all reference to the coconut entirely and focusing on line, tone, and composition for their own sake. Through this exercise, I learned how the same subject can be pushed from recognizable depiction to pure visual language, and how abstraction and non-objective art still grow out of intentional decisions about mark-making and balance.", tag: "Module 4", src: "module4.png", date: "February 18, 2026", type: "Activity" },
+            { title: "My Name in Baybayin", desc: "For this module, I created a composition that fuses the traditional geometric patterns of the Cordilleras with my name written in Baybayin. I learned how pre-colonial Filipino writing can be integrated with regional textile patterns to create a contemporary tribute to heritage, and how repetition in design can echo the oral and visual traditions of the Cordilleran peoples.", tag: "Module 5", src: "module5.jpg", date: "February 28, 2026", type: "Activity" },
+            { title: "Drawing or Painting Artwork", desc: "I used hatching, cross-hatching, and blending to create shading and depth. The techniques helped define form, light, and shadow, making the objects appear more three-dimensional.", tag: "Module 6-7", src: "module67.jpg", date: "March 13, 2026", type: "Activity" },
+            { title: "Digital Poster", desc: "I used a monochromatic color scheme focused on purple, applying different tints and shades to create contrast, depth, and mood. The variation in light and dark tones helps emphasize the focal point and maintain visual harmony throughout the design.", tag: "Module 8", src: "module8.png", date: "March 18, 2026", type: "Activity" },
+            { title: "Photo Narrative Series", desc: "I created a ‘Day in My Life as an IT Student’ design, using different visual elements and layout techniques to clearly show and share how my daily life goes.", tag: "Module 9", src: "module9.png", date: "April 14, 2026", type: "Activity" },
+            { title: "Infographic", desc: "I created an infographic about the most used programming languages in 2026. I used a blue gradient to give a modern and professional look, while also making the design visually appealing. I added a robot icon to represent technology and innovation in programming. The futuristic design reflects how fast technology is evolving and how programming languages continue to shape the future of the IT industry. Through this infographic, I want to show the importance of staying updated with current trends in programming.", tag: "Module 10", src: "module10.png", date: "April 17, 2026", type: "Activity" },
+            { title: "Meme Series Creation", desc: "I created a meme about how AI saves me from coding projects. It shows how I struggle with errors, then suddenly AI comes in like a hero and fixes everything. It’s funny and relatable for students who rely on AI to survive deadlines.", tag: "Module 11", src: "module11.png", date: "April 30, 2026", type: "Activity" }
+
+        ];
+
+        const grid = document.getElementById('sw-grid');
+        const totalSpan = document.getElementById('total-count');
+        totalSpan.textContent = `${itemsData.length} outputs`;
+
+        // Generate HTML for each item
+        itemsData.forEach((item, idx) => {
+            const swItem = document.createElement('div');
+            swItem.className = 'sw-item reveal';
+            swItem.setAttribute('data-subject', 'subject1');
+            swItem.setAttribute('data-title', item.title);
+            swItem.setAttribute('data-desc', item.desc);
+            swItem.setAttribute('data-tag', item.tag);
+            swItem.setAttribute('data-src', item.src);
+            if (idx % 2 === 0) swItem.classList.add('reveal--delay');
+            if (idx % 3 === 0) swItem.classList.add('reveal--delay2');
+
+            swItem.innerHTML = `
+                <div class="sw-item__img-wrap">
+                    <img src="${item.src}" alt="${item.title}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'img-placeholder\'><svg width=\'32\' height=\'32\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>No image yet</span></div>';">
+                </div>
+                <div class="sw-item__body">
+                    <span class="sw-item__tag">${item.tag}</span>
+                    <h3 class="sw-item__title">${item.title}</h3>
+                </div>
+                <div class="sw-item__footer">
+                    <span class="sw-item__date">${item.date}</span>
+                    <span class="sw-item__type">${item.type}</span>
+                </div>
+            `;
+            grid.appendChild(swItem);
+        });
+
+        // --- Lightbox logic ---
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lbImg');
+        const lbTag = document.getElementById('lbTag');
+        const lbTitle = document.getElementById('lbTitle');
+        const lbDesc = document.getElementById('lbDesc');
+        const lbClose = document.getElementById('lbClose');
+
+        function openLightbox(item) {
+            lbImg.src = item.dataset.src;
+            lbTag.textContent = item.dataset.tag;
+            lbTitle.textContent = item.dataset.title;
+            lbDesc.textContent = item.dataset.desc;
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.sw-item').forEach(item => {
+            item.addEventListener('click', () => openLightbox(item));
+        });
+        lbClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+        // --- Tab filtering ---
+        const tabs = document.querySelectorAll('.sw-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                const filter = tab.dataset.filter;
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.sw-item').forEach(item => {
+                    if (filter === 'all' || item.dataset.subject === filter) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // URL param handling
+        const urlParams = new URLSearchParams(window.location.search);
+        const subjectParam = urlParams.get('subject');
+        if (subjectParam) {
+            const targetTab = document.querySelector(`.sw-tab[data-filter="${subjectParam}"]`);
+            if (targetTab) targetTab.click();
+            const targetSection = document.getElementById(subjectParam);
+            if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Reveal animations (simple)
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => observer.observe(el));
+
+        // Cursor and mobile menu (basic)
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('cursorFollower');
+        if (cursor && follower && window.matchMedia("(pointer: fine)").matches) {
+            let mx = 0, my = 0, cx = 0, cy = 0, fx = 0, fy = 0;
+            document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+            function animate() {
+                cx += (mx - cx) * 0.2;
+                cy += (my - cy) * 0.2;
+                fx += (mx - fx) * 0.1;
+                fy += (my - fy) * 0.1;
+                cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+                follower.style.transform = `translate(${fx}px, ${fy}px) translate(-50%, -50%)`;
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (burger && mobileMenu) {
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('open');
+                mobileMenu.classList.toggle('open');
+                document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+            });
+            document.querySelectorAll('.mobile__link').forEach(link => {
+                link.addEventListener('click', () => {
+                    burger.classList.remove('open');
+                    mobileMenu.classList.remove('open');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
